@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:project_cancerline/presentation/screens/auth_screens/create_account/page1_choose_role_account_screen.dart';
+import 'package:project_cancerline/presentation/screens/auth_screens/create_account/page2_personal_information_screen.dart';
 
+import 'package:project_cancerline/presentation/themes/themestyle.dart';
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(const MainApp());
 }
 
@@ -9,12 +16,9 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+    return MaterialApp( theme: AppTheme.light,
+      debugShowCheckedModeBanner: false,
+      home: Page1ChooseRoleAccountScreen(),
     );
   }
 }
