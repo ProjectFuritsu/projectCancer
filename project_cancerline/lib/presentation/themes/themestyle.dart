@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 class AppTheme {
   // 🎨 Color Palette
   static const Color primaryColor = Color(0xFF5B50A0);
+  static const Color secondaryColor = Color(0xFF9891C3);
   static const Color defaultbackgroundColor = Color(0xFFF5F5F5);
   static const Color warningColor = Colors.red;
+  static const Color completeColor = Colors.green;
   
 
   // 🧱 Typography

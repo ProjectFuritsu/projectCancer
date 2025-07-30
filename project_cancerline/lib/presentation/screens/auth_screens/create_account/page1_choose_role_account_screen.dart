@@ -14,7 +14,7 @@ class Page1ChooseRoleAccountScreen extends StatelessWidget {
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(4.0),
           child: LinearProgressIndicator(
-            value: 0.25,
+            value: 0.20,
             backgroundColor: AppTheme.defaultbackgroundColor,
             valueColor: AlwaysStoppedAnimation<Color>(
               Theme.of(context).primaryColor,

@@ -26,7 +26,7 @@ class _Page2PersonalInformationScreenState
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(4.0),
           child: LinearProgressIndicator(
-            value: 0.50,
+            value: 0.40,
             backgroundColor: AppTheme.defaultbackgroundColor,
             valueColor: AlwaysStoppedAnimation<Color>(
               Theme.of(context).primaryColor,
