@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomTextField extends StatelessWidget {
   final String? label;
@@ -11,7 +12,10 @@ class CustomTextField extends StatelessWidget {
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
   final bool enabled;
-  
+  final int? maxLength;
+  final TextAlign? textAlign;
+  final FocusNode? focusNode;
+  final List<TextInputFormatter>? inputFormatters;
 
   const CustomTextField({
     super.key,
@@ -25,6 +29,10 @@ class CustomTextField extends StatelessWidget {
     this.validator,
     this.onChanged,
     this.enabled = true,
+    this.maxLength,
+    this.textAlign,
+    this.focusNode,
+    this.inputFormatters,
   });
 
   @override
@@ -33,6 +41,10 @@ class CustomTextField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TextFormField(
+          maxLength: maxLength,
+          textAlign: textAlign ?? TextAlign.start,
+          focusNode: focusNode,
+          inputFormatters: inputFormatters,
           controller: controller,
           obscureText: isPassword,
           keyboardType: keyboardType,
@@ -47,6 +59,9 @@ class CustomTextField extends StatelessWidget {
             floatingLabelBehavior: FloatingLabelBehavior.auto,
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,
+            counterText: maxLength != null
+                ? ''
+                : null, // 👈 Hides character counter
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:project_cancerline/presentation/themes/themestyle.dart';
 import 'package:flutter/services.dart';
+import 'package:project_cancerline/presentation/themes/themestyle.dart';
 import 'package:project_cancerline/presentation/widgets/custom_elevated_button.dart';
+import 'package:project_cancerline/presentation/widgets/custom_text_field.dart';
 
 class Page4AccountPinScreen extends StatefulWidget {
   const Page4AccountPinScreen({super.key});
@@ -45,39 +46,81 @@ class _Page4AccountPinScreenState extends State<Page4AccountPinScreen> {
     );
   }
 
-  Widget _buildPinField(int index) {
-    return SizedBox(
-      width: 50,
-      child: TextField(
-        controller: _controllers[index],
-        focusNode: _focusNodes[index],
-        keyboardType: TextInputType.number,
-        maxLength: 1,
-        textAlign: TextAlign.center,
-        obscureText: _obscurePin,
-        inputFormatters: [
-          FilteringTextInputFormatter.digitsOnly,
-        ],
-        decoration: InputDecoration(
-          counterText: '',
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: AppTheme.primaryColor.withOpacity(0.4)),
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: AppTheme.primaryColor, width: 2.0),
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-        ),
-        onChanged: (value) => _onPinChanged(index, value),
-      ),
-    );
-  }
-
   void _togglePinVisibility() {
     setState(() {
       _obscurePin = !_obscurePin;
     });
+  }
+
+  Widget _buildDescription() {
+    return Column(
+      children: [
+        const SizedBox(height: 24),
+        Text(
+          'Would you like to use a 5-digit PIN for faster sign-ins?',
+          style: Theme.of(context).textTheme.titleLarge,
+          textAlign: TextAlign.center,
+        ),
+        const SizedBox(height: 16),
+        Text(
+          'A quick PIN lets you open the app securely without typing your password each time.',
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: AppTheme.secondaryColor,
+              ),
+          textAlign: TextAlign.center,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildPinFields() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: List.generate(5, (index) {
+        return SizedBox(
+          width: 50,
+          child: CustomTextField(
+            controller: _controllers[index],
+            focusNode: _focusNodes[index],
+            keyboardType: TextInputType.number,
+            isPassword: _obscurePin,
+            maxLength: 1,
+            textAlign: TextAlign.center,
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly,
+            ],
+            onChanged: (value) => _onPinChanged(index, value),
+          ),
+        );
+      }),
+    );
+  }
+
+  Widget _buildToggleVisibilityButton() {
+    return IconButton(
+      icon: Icon(
+        _obscurePin ? Icons.visibility_off : Icons.visibility,
+        color: AppTheme.primaryColor,
+      ),
+      onPressed: _togglePinVisibility,
+    );
+  }
+
+  Widget _buildNextButton() {
+    return SizedBox(
+      width: double.infinity,
+      child: CustomElevatedButton(
+        label: 'Next',
+        onPressed: _onSubmitPin,
+        backgroundColor: AppTheme.primaryColor,
+        padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 60.0),
+        borderRadius: 12.0,
+        textStyle: Theme.of(context).textTheme.titleMedium?.copyWith(
+              fontSize: 18,
+              color: AppTheme.defaultbackgroundColor,
+            ),
+      ),
+    );
   }
 
   @override
@@ -98,49 +141,13 @@ class _Page4AccountPinScreenState extends State<Page4AccountPinScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 50.0, vertical: 24.0),
           child: Column(
             children: [
-              const SizedBox(height: 24),
-              Text(
-                'Would you like to use a 5-digit PIN for faster sign-ins?',
-                style: Theme.of(context).textTheme.titleLarge,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 16),
-              Text(
-                'A quick PIN lets you open the app securely without typing your password each time.',
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: AppTheme.primaryColor.withOpacity(0.7),
-                ),
-                textAlign: TextAlign.center,
-              ),
+              _buildDescription(),
               const SizedBox(height: 124),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: List.generate(5, (index) => _buildPinField(index)),
-              ),
+              _buildPinFields(),
               const SizedBox(height: 32),
-              IconButton(
-                icon: Icon(
-                  _obscurePin ? Icons.visibility_off : Icons.visibility,
-                  color: AppTheme.primaryColor,
-                ),
-                onPressed: _togglePinVisibility,
-              ),
+              _buildToggleVisibilityButton(),
               const SizedBox(height: 64),
-              SizedBox(
-                width: double.infinity,
-                child: CustomElevatedButton(
-                        label: 'Next',
-                        onPressed: () {},
-                        backgroundColor: AppTheme.primaryColor,
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 12.0,
-                          horizontal: 60.0,
-                        ),
-                        borderRadius: 12.0,
-                        textStyle: Theme.of(context).textTheme.titleMedium
-                            ?.copyWith(fontSize: 18, color: AppTheme.defaultbackgroundColor),
-                      ),
-              ),
+              _buildNextButton(),
             ],
           ),
         ),
