@@ -54,7 +54,7 @@ class CustomModalDropdownField<T> extends StatelessWidget {
             suffixIcon: icon ?? const Icon(Icons.keyboard_arrow_down_rounded, color: AppTheme.primaryColor),
           ),
           controller: TextEditingController(
-            text: value != null ? displayText(value!) : '',
+            text: value != null ? displayText(value as T) : '',
           ),
           style: Theme.of(context).textTheme.bodyMedium,
         ),
