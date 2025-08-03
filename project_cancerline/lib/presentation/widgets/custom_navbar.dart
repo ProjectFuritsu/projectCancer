@@ -28,6 +28,10 @@ class CustomNavBar extends StatelessWidget {
       height: 70,
       decoration: BoxDecoration(
         color: bgColor,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(12),
+          topRight: Radius.circular(12),
+        ),
         boxShadow: [
           BoxShadow(
             color: Colors.black26,
