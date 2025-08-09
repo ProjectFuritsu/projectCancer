@@ -3,7 +3,7 @@ import 'package:project_cancerline/presentation/themes/themestyle.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   final String label;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final Color? backgroundColor;
   final Color? textColor;
   final EdgeInsetsGeometry? padding;
@@ -12,6 +12,8 @@ class CustomElevatedButton extends StatelessWidget {
   final TextStyle? textStyle;
   final BorderSide? border;
   final AlignmentGeometry? alignment;
+  final bool loading;
+
 
   const CustomElevatedButton({
     super.key,
@@ -25,6 +27,8 @@ class CustomElevatedButton extends StatelessWidget {
     this.textStyle,
     this.border,
     this.alignment = Alignment.center,
+    this.loading = false,
+  
   });
 
   @override
@@ -49,17 +53,38 @@ class CustomElevatedButton extends StatelessWidget {
           side: border ?? BorderSide.none,
         ),
       ),
-      onPressed: onPressed,
-      child: icon != null
+      onPressed: loading ? null : onPressed,
+      child: loading
+          ? const SizedBox(
+              height: 20,
+              width: 20,
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+              ),
+            )
+          : icon != null
           ? Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 icon!,
                 const SizedBox(width: 8),
-                Text(label, style: contentStyle, textAlign: TextAlign.center),
+                Flexible(
+                  child: Text(
+                    label,
+                    style: contentStyle,
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
               ],
             )
-          : Text(label, style: contentStyle, textAlign: TextAlign.center),
+          : Text(
+              label,
+              style: contentStyle,
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+            ),
     );
   }
 }

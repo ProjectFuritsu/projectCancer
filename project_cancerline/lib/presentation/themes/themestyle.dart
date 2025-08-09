@@ -3,9 +3,16 @@ import 'package:flutter/material.dart';
 class AppTheme {
   // 🎨 Color Palette
   static const Color primaryColor = Color(0xFF5B50A0);
+  static const Color secondaryColor = Color(0xFF9891C3);
   static const Color defaultbackgroundColor = Color(0xFFF5F5F5);
-  static const Color warningColor = Colors.red;
-  
+  static const Color complementaryColorSolidGreen = Color(0xFF3CC34F);
+  static const Color complementaryColorLightGreen = Color(0xFFCBFFD2);
+  static const Color complementaryColorSolidRed = Color(0xFFFF5267);
+  static const Color complementaryColorLightRed = Color(0xFFFFD7DB);
+  static const Color complementaryColorSolidBlue = Color(0xFF139E9E);
+  static const Color complementaryColorLightBlue = Color(0xFFD1FFFF);
+  static const Color complementaryColorSolidOrange = Color(0xFFFFA133);
+  static const Color complementaryColorLightOrange = Color(0xFFFFEAD1);
 
   // 🧱 Typography
   static const double defaultFontSize = 16.0;
@@ -13,7 +20,7 @@ class AppTheme {
 
   // ⚠️ TextStyle for warnings
   static const TextStyle warningTextStyle = TextStyle(
-    color: warningColor,
+    color: complementaryColorSolidRed,
     fontSize: defaultFontSize,
   );
 
